@@ -1,1 +1,56 @@
+-- DAY 2
+--	Total revenue. 
+SELECT
+	SUM("Revenue") As total_revenue
+FROM public.fashion_retail;
 
+--	Total profit. 
+SELECT
+	SUM("Profit") AS total_profit
+FROM public.fashion_retail;
+
+--	Total quantity sold. 
+SELECT
+	SUM("Quantity") AS total_quantity
+FROM public.fashion_retail;
+
+--	Average order value. 
+SELECT
+	ROUND(
+	AVG("Quantity"),0) AS avg_order_value
+FROM public.fashion_retail;
+
+--	Highest-value order.
+SELECT ("Quantity") AS Highest_value_order 
+FROM public.fashion_retail
+ORDER BY "Quantity" DESC
+LIMIT 1;
+
+--	Lowest-value order. 
+SELECT ("Quantity") AS Highest_value_order 
+FROM public.fashion_retail
+ORDER BY "Quantity" ASC
+LIMIT 1;
+
+--	Average discount. 
+SELECT
+	ROUND(
+	AVG("Discount"),2) AS avg_discount
+FROM public.fashion_retail;
+
+--	Total shipping cost. 
+SELECT
+	SUM("Shipping_Cost") AS total_shipping_cost
+FROM public.fashion_retail;
+
+--	Number of returned orders.
+SELECT
+	COUNT("Returned") AS returned_orders
+FROM public.fashion_retail
+WHERE "Returned" = 'Yes';
+
+--	Average customer rating. 
+SELECT
+	ROUND(
+	AVG("Customer_Rating"),1) AS avg_customer_rating
+FRoM public.fashion_retail;
