@@ -1,0 +1,61 @@
+--- DAY 3
+--Top 10 best-selling products. 
+SELECT "Product_Name"
+FROM public.fashion_retail
+ORDER BY "Quantity" DESC
+LIMIT 10;
+
+--Lowest-selling products. 
+SELECT "Product_Name"
+FROM public.fashion_retail
+ORDER BY "Quantity" ASC
+LIMIT 10;
+
+--Most profitable products. 
+SELECT "Product_Name"
+FROM public.fashion_retail
+ORDER BY "Profit" DESC
+LIMIT 1;
+
+--Highest revenue products. 
+SELECT "Product_Name"
+FROM public.fashion_retail
+ORDER BY "Revenue" DESC
+LIMIT 10;
+
+--Best-performing category.
+SELECT "Category"
+FROM public.fashion_retail
+ORDER BY "Revenue" DESC, "Profit" DESC
+LIMIT 1;
+
+--Worst-performing category. 
+SELECT "Category"
+FROM public.fashion_retail
+ORDER BY "Revenue" ASC, "Profit" ASC
+LIMIT 1;
+
+--Average price by category. 
+SELECT "Category",
+	ROUND(
+		AVG("Cost"),2) AS avg_price
+FROM public.fashion_retail
+GROUP BY "Category";
+
+--Product with the highest discount. 
+SELECT "Product_Name"
+FROM public.fashion_retail
+ORDER BY "Discount" DESC
+LIMIT 1;
+
+--Product with the highest return rate. 
+SELECT "Product_Name"
+FROM public.fashion_retail
+WHERE "Returned" = 'Yes'
+ORDER BY return_rate
+
+--Most expensive product sold. 
+SELECT "Product_Name"
+FROM public.fashion_retail
+ORDER BY "Cost" DESC
+LIMIT 1;
