@@ -1,1 +1,72 @@
+-- Daily revenue 
+SELECT
+	EXTRACT(DAY FROM "Order_Date") AS day_,
+	SUM("Revenue") As total_revenue
+FROM public.fashion_retail
+GROUP BY day_
+ORDER BY day_ ASC ;
+
+-- Monthly revenue 
+SELECT
+	EXTRACT(MONTH FROM "Order_Date") AS Month_,
+	SUM("Revenue") As total_revenue
+FROM public.fashion_retail
+GROUP BY Month_
+ORDER BY Month_ ASC;
+
+-- Quarterly revenue
+
+-- Highest revenue month
+SELECT
+	EXTRACT(MONTH FROM "Order_Date") AS Month_,
+	SUM("Revenue") As total_revenue
+FROM public.fashion_retail
+GROUP BY Month_
+ORDER BY total_revenue DESC 
+LIMIT 1;
+
+-- Lowest revenue month 
+SELECT
+	EXTRACT(MONTH FROM "Order_Date") AS Month_,
+	SUM("Revenue") As total_revenue
+FROM public.fashion_retail
+GROUP BY Month_
+ORDER BY total_revenue ASC 
+LIMIT 1;
+
+-- Revenue growth 
+
+-- Revenue trend 
+WITH t_revenue AS(
+	SELECT
+		"Order_Date",
+		SUM("Revenue") AS total_revenue
+	FROM public.fashion_retail
+	GROUP BY "Order_Date"
+),
+prev_rev AS(
+ 	SELECT
+	 	"Order_Date",
+	 	total_revenue,
+		LAG(total_revenue) OVER(ORDER BY "Order_Date") AS previous_revenue
+	FROM t_revenue
+)
+SELECT
+	"Order_Date",
+	total_revenue,
+	previous_revenue,
+	(total_revenue - previous_revenue) AS revenue_change,
+	ROUND(
+		(total_revenue - previous_revenue)/ NULLIF (previous_revenue, 0),2) AS perc_change
+FROM prev_rev
+ORDER BY "Order_Date";
+
+-- Average daily sales 
+SELECT
+	EXTRACT(DAY FROM "Order_Date") AS Day_,
+	ROUND(
+		AVG("Revenue"),2) AS total_sales
+FROM public.fashion_retail
+GROUP BY Day_
+ORDER BY Day_ ASC;
 
